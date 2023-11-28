@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.Models.Entities
 {
-    
     public class User
     {
         public Guid? Id { get; set; }
