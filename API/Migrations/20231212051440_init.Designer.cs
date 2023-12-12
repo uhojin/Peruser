@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20231212020925_init")]
+    [Migration("20231212051440_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -26,14 +26,19 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ImgUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("PostingDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -54,6 +59,9 @@ namespace API.Migrations
 
                     b.Property<Guid?>("ListingId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("OfferAmount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("OfferDate")
                         .HasColumnType("TEXT");

@@ -23,14 +23,19 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ImgUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("PostingDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -51,6 +56,9 @@ namespace API.Migrations
 
                     b.Property<Guid?>("ListingId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("OfferAmount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("OfferDate")
                         .HasColumnType("TEXT");

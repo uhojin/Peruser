@@ -30,9 +30,11 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ImgUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    ImgUrl = table.Column<string>(type: "TEXT", nullable: true),
                     OwnerId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    PostingDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    PostingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,7 +53,8 @@ namespace API.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     ListingId = table.Column<Guid>(type: "TEXT", nullable: true),
                     OfferDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    BuyerId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    BuyerId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    OfferAmount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
