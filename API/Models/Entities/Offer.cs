@@ -11,5 +11,6 @@ namespace API.Models.Entities
         public Listing? Listing { get; set; }
         public DateTime OfferDate { get; set; }
         public User? Buyer { get; set; }
+        public int OfferAmount { get; set; }
     }
 }
