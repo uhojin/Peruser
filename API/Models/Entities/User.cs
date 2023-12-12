@@ -16,6 +16,6 @@ namespace API.Models.Entities
         [Required]
         public string Name { get; set; }
         public List<Listing>? Listings { get; set; }
-        public int Currency { get; set; }
+        public int? Currency { get; set; }
     }
 }
