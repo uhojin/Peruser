@@ -10,7 +10,7 @@ namespace API.Models.Entities
         public Guid Id { get; set; }
         public string? Title { get; set; }
         public string? ImgUrl { get; set; }
-        public User Owner { get; set; }
+        public User? Owner { get; set; }
         public DateTime PostingDate { get; set; }
         public int Price { get; set; }
         public string? Description { get; set; }
