@@ -38,34 +38,6 @@ namespace API.Controllers
         [HttpPost("{userId}/listing")]
         public async Task<IActionResult> AddUserListing(Guid userId, Listing listing)
         {
-            // var user = await _db.Users
-            //                     .Include(x => x.Listings)
-            //                     .SingleOrDefaultAsync(x => x.Id == userId);
-            // if (user == null)
-            // {
-            //     return NotFound(
-            //         new
-            //         {
-            //             Error = new
-            //             {
-            //                 status = "400",
-            //                 title = "User Not Found",
-            //                 detail = $"User with ID:({userId}) does not exist"
-            //             }
-            //         });
-            // }
-
-            // else if (user.Listings == null)
-            // {
-            //     user.Listings = new List<Listing>();
-            // }
-            // if (listing.PostingDate.Equals(DateTime.MinValue))
-            // {
-            //     listing.PostingDate = DateTime.Now;
-            // }
-            // user.Listings.Add(listing);
-            // await _db.SaveChangesAsync();
-            
             // Could be declared outside of this method so all methods can use the same instance
             var listingsRepository = new ListingsRepository();
 
