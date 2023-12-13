@@ -16,15 +16,23 @@ namespace API.Models.Repositories
         public static User AddUser(User user) {
             var search = _db.Users.FirstOrDefault(x => x.Email == user.Email);
            
-            if (search == null) {
-                _db.Users.Add(user);
-                _db.SaveChanges();
-                return user;
+           if (DoesUsernameExist(user.Name))
+            {
+                return null; 
             }
-            return null;
+
+            _db.Users.Add(user);
+            _db.SaveChanges();
+            return user;
 
 
         }
+
+        public static bool DoesUsernameExist(string username)
+        {
+            return _db.Users.Any(x => x.Name == username);
+        }
+
         public static void DeleteUser(User user) {
             // delete a user
         }
