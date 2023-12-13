@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         console.log(data.userID);
         localStorage.setItem('userID', data.userID);
         // Redirect to index.html
-        window.location.href = "profile.html";
+        window.location.href = "index.html";
     })
     .catch((error) => {
         console.error('Error:', error);

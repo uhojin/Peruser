@@ -8,6 +8,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f4f4f4;
+    flex-direction: column;
 }
 
 #loginForm {
@@ -47,5 +48,5 @@ body {
 }
 
 #loginForm input[type="submit"]:hover {
-    background-color: #444;
+    background-color: #45a049;
 }
