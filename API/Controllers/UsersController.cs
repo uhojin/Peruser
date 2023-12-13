@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(User user)
         {
-            User checkUser = UserRepository.AddUser(user);
+            User checkUser = await UserRepository.AddUser(user);
             if (checkUser == null)
             {
                 return BadRequest(
