@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Listing</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/scripts.js" defer></script>
+</head>
+<!--  -->
+<body>
+    
+    <h1>Add Listing</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">View Listings</a></li>
+            <li><a href="addListing.html">Add Listing</a></li>
+            <li><a href="myListings.html">My Listings</a></li>
+            <li><a href="myProfile.html">My Profile</a></li>
+        </ul>
+    </nav>
+
+    <form id="addListingForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br><br>
+        
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" id="imageUrl" name="imageUrl"><br><br>
+        
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required><br><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Add Listing">
+    </form>
+    
+    <script>
+        document.getElementById("addListingForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var title = document.getElementById("title").value;
+            var imageUrl = document.getElementById("imageUrl").value;
+            var price = document.getElementById("price").value;
+            var description = document.getElementById("description").value;
+            
+            var listing = {
+                title: title,
+                imageUrl: imageUrl,
+                price: price,
+                description: description
+            };
+
+            var userID = localStorage.getItem('userID');
+            
+            // Send the listing object to the web API using a POST request
+            // You can use JavaScript's fetch API or any other library to make the request
+            
+            fetch(`http://localhost:5000/api/users/${userID}/listing`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(listing)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Listing added successfully:", data);
+                // Handle the response from the web API as needed
+            })
+            .catch(error => {
+                console.error("Error adding listing:", error);
+                // Handle any errors that occur during the request
+            });
+        });
+    </script>
+</body>
+</html>

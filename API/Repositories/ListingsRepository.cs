@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models.Entities;
 using API.Persistence;
+using API.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
@@ -30,7 +31,7 @@ namespace API.Repositories
                 listing.PostingDate = DateTime.Now;
             }
             user.Listings.Add(listing);
-            
+
             await _db.SaveChangesAsync();
 
             return listing;
@@ -50,6 +51,34 @@ namespace API.Repositories
         {
             // return Database.Listings.Count(x => x.Owner.Id == userId);
             return await _db.Listings.CountAsync(x => x.Owner.Id == userId);
+        }
+
+        public async Task<List<ListingDTO>> GetListingByUser(Guid userId)
+        {
+            // return Database.Listings.FirstOrDefault(x => x.Owner.Id == userId);
+            var result = _db.Listings
+                            .Include(x => x.Owner)
+                            // .Include(x => x.Offers)
+                            // .ThenInclude(x => x.Buyer)
+                            .Where(x => x.Owner.Id == userId)
+                            .ToList();
+
+            // make anonymous object to avoid circular reference
+            return result.Select(x => new ListingDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                ImgUrl = x.ImgUrl,
+                Owner = new UserDTO
+                {
+                    Id = x.Owner.Id,
+                    Name = x.Owner.Name,
+                    Email = x.Owner.Email
+                },
+                PostingDate = x.PostingDate,
+                Price = x.Price,
+                Description = x.Description
+            }).ToList();
         }
 
         public async Task<Listing> UpdateListing(Guid listingId, Listing listing)
