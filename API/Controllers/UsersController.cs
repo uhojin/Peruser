@@ -60,5 +60,21 @@ namespace API.Controllers
             // await _db.SaveChangesAsync();
             return Created("", new {title = listing.Title, total = userListingCount});
         }
+
+        //POST /api/users/login
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(User user)
+        {
+            Guid? token = UserRepository.login(user);
+            if (token == null)
+            {
+                return BadRequest(
+                    new
+                    {
+                        Error = new { status = "400", title = "Invalid Credentials", detail = $"Invalid Credentials" }
+                    });
+            }
+            return Ok(new {userID = token});
+        }
     }
 }

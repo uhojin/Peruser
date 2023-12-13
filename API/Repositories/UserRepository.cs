@@ -15,15 +15,31 @@ namespace API.Models.Repositories
         }
         public static User AddUser(User user) {
             var search = _db.Users.FirstOrDefault(x => x.Email == user.Email);
-            if(search != null) {
+           
+            if (search == null) {
                 _db.Users.Add(user);
                 _db.SaveChanges();
                 return user;
             }
-            else return null;
+            return null;
+
+
         }
         public static void DeleteUser(User user) {
             // delete a user
+        }
+
+        public static Guid? login(User user) {
+            // login a user return userID as token
+            // use email and name to login for testing
+
+            var search = _db.Users.FirstOrDefault(x => x.Email == user.Email && x.Name == user.Name);
+            // if (search == null) {
+            //     return null;
+            // }
+            // return search.Id;
+            return search?.Id;
+
         }
     }
 }
