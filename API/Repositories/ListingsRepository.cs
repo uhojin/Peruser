@@ -51,5 +51,23 @@ namespace API.Repositories
             // return Database.Listings.Count(x => x.Owner.Id == userId);
             return await _db.Listings.CountAsync(x => x.Owner.Id == userId);
         }
+
+        public async Task<Listing> UpdateListing(Guid listingId, Listing listing)
+        {
+            var listingToUpdate = await _db.Listings.FirstOrDefaultAsync(x => x.Id == listingId);
+            if (listingToUpdate == null)
+            {
+                return null;
+            }
+
+            listingToUpdate.Title = listing.Title;
+            listingToUpdate.ImgUrl = listing.ImgUrl;
+            listingToUpdate.Price = listing.Price;
+            listingToUpdate.Description = listing.Description;
+
+            await _db.SaveChangesAsync();
+
+            return listingToUpdate;
+        }
     }
 }
