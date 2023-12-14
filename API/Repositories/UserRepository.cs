@@ -11,10 +11,15 @@ namespace API.Models.Repositories
     public class UserRepository
     {
         private static Database _db = new Database();
-        public static async Task<User> GetUserById(Guid id) {
+        public static async Task<UserDTO> GetUserById(Guid id) {
             var search = _db.Users.FirstOrDefault(x => x.Id == id);
             if (search == null) return null;
-            return search;
+            UserDTO dto = new UserDTO {
+                Id = search.Id,
+                Name = search.Name,
+                Email = search.Email
+            };
+            return dto;
 
         }
         public static async Task<UserDTO> GetUserByName(string name) {
