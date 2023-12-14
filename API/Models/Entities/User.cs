@@ -15,7 +15,7 @@ namespace API.Models.Entities
         public string Email { get; set; }
         [Required]
         public string Name { get; set; }
-        public bool Priviledged { get; }
+        public bool Priviledged { get; set; }
         public List<Listing>? Listings { get; set; }
         public int? Currency { get; set; }
     }
