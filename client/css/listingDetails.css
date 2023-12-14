@@ -1,0 +1,75 @@
+#listing {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#listing img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+}
+
+#listing h3 {
+    margin-top: 20px;
+    color: #333;
+}
+
+#listing p {
+    color: #666;
+
+}
+
+#listing button {
+    display: inline-block;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+
+
+#listing button:hover {
+    background-color: #0056b3;
+}
+
+#listing #buyBtn {
+    background-color: #28a745; /* Green */
+}
+
+#buyBtn:hover {
+    background-color: #218838;
+}
+
+#listing #deleteBtn {
+    background-color: #dc3545; /* Red */
+}
+
+#listing #deleteBtn:hover {
+    background-color: #c82333;
+}
+
+#listing #editBtn {
+    background-color: #ffc107; /* Yellow */
+    color: #212529; /* Dark text for better contrast against yellow background */
+}
+
+#listing #editBtn:hover {
+    background-color: #e0a800;
+}
+
+#buttonContainer {
+    display: flex;
+    justify-content: space-between;
+}

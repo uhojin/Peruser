@@ -2,7 +2,7 @@
 var userID = localStorage.getItem('userID');
 
 // Fetch the user's listings from the API
-fetch(`http://localhost:5000/api/listings/${userID}`, {
+fetch(`http://localhost:5000/api/listings/user/${userID}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ fetch(`http://localhost:5000/api/listings/${userID}`, {
         listings.forEach(listing => {
             const listingElement = document.createElement('div');
             listingElement.innerHTML = `
-                <h3>${listing.title}</h3>
+                <h3><a href="listingDetails.html?id=${listing.id}">${listing.title}</a></h3>
                 <p>${listing.description}</p>
                 <p>Price: ${listing.price} Points</p>
             `;

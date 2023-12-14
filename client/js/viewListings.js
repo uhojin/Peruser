@@ -11,7 +11,7 @@ fetch('http://localhost:5000/api/listings', {
         products.forEach(product => {
             const productElement = document.createElement('div');
             productElement.innerHTML = `
-                <h3>${product.title}</h3>
+                <h3><a href="listingDetails.html?id=${product.id}">${product.title}</a></h3>
                 <p>${product.description}</p>
                 <p>Price: ${product.price} Points</p>
             `;
