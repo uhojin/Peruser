@@ -21,3 +21,4 @@ fetch('http://localhost:5000/api/listings', {
     .catch(error => {
         console.error('Error fetching products:', error);
     });
+

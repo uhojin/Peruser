@@ -11,6 +11,12 @@ fetch(`http://localhost:5000/api/listings/${userID}`, {
     .then(listings => {
         // Display the listings on the webpage
         const listingsContainer = document.getElementById('products');
+
+        // Create and append a new element for the total listing count
+        const countElement = document.createElement('p');
+        countElement.textContent = `Total listings: ${listings.length}`;
+        listingsContainer.appendChild(countElement);
+
         listings.forEach(listing => {
             const listingElement = document.createElement('div');
             listingElement.innerHTML = `
