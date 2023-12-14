@@ -15,7 +15,8 @@ namespace API.Models.Repositories
         public static async Task<UserDTO> GetUserById(Guid id) {
             var search = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (search == null) return null;
-            UserDTO dto = new UserDTO {
+            UserDTO dto = new()
+            {
                 Id = search.Id,
                 Name = search.Name,
                 Email = search.Email
@@ -26,7 +27,8 @@ namespace API.Models.Repositories
         public static async Task<UserDTO> GetUserByName(string name) {
             var search = await _db.Users.FirstOrDefaultAsync(x => x.Name == name);
             if (search == null) return null;
-            UserDTO dto = new UserDTO {
+            UserDTO dto = new()
+            {
                 Id = search.Id,
                 Name = search.Name,
                 Email = search.Email
@@ -41,8 +43,8 @@ namespace API.Models.Repositories
                 return null; 
             }
 
-            _db.Users.Add(user);
-            _db.SaveChanges();
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
             return user;
 
 

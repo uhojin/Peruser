@@ -30,6 +30,12 @@ namespace API.Repositories
             {
                 listing.PostingDate = DateTime.Now;
             }
+
+            if (listing.OwnerId == null)
+            {
+                listing.OwnerId = user.Id;
+            }
+            
             user.Listings.Add(listing);
 
             await _db.SaveChangesAsync();
@@ -50,17 +56,17 @@ namespace API.Repositories
         public async Task<int> CountUserListings(Guid userId)
         {
             // return Database.Listings.Count(x => x.Owner.Id == userId);
-            return await _db.Listings.CountAsync(x => x.Owner.Id == userId);
+            return await _db.Listings.CountAsync(x => x.OwnerId == userId);
         }
 
         public async Task<List<ListingDTO>> GetListingByUser(Guid userId)
         {
             // return Database.Listings.FirstOrDefault(x => x.Owner.Id == userId);
             var result = await _db.Listings
-                            .Include(x => x.Owner)
+                            // .Include(x => x.Owner)
                             // .Include(x => x.Offers)
                             // .ThenInclude(x => x.Buyer)
-                            .Where(x => x.Owner.Id == userId)
+                            .Where(x => x.OwnerId == userId)
                             .ToListAsync();
 
             // make anonymous object to avoid circular reference
@@ -69,16 +75,31 @@ namespace API.Repositories
                 Id = x.Id,
                 Title = x.Title,
                 ImgUrl = x.ImgUrl,
-                Owner = new UserDTO
-                {
-                    Id = x.Owner.Id,
-                    Name = x.Owner.Name,
-                    Email = x.Owner.Email
-                },
+                // Owner = new UserDTO
+                // {
+                //     Id = x.OwnerId,
+                //     Name = x.Owner.Name,
+                //     Email = x.Owner.Email
+                // },
+                OwnerId = x.OwnerId,
                 PostingDate = x.PostingDate,
                 Price = x.Price,
                 Description = x.Description
             }).ToList();
+        }
+
+        public async Task<Listing> DeleteListing(Guid listingId)
+        {
+            var listingToDelete = await _db.Listings.FirstOrDefaultAsync(x => x.Id == listingId);
+            if (listingToDelete == null)
+            {
+                return null;
+            }
+
+            _db.Listings.Remove(listingToDelete);
+            await _db.SaveChangesAsync();
+
+            return listingToDelete;
         }
 
         public async Task<Listing> UpdateListing(Guid listingId, Listing listing)
