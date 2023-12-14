@@ -8,6 +8,7 @@ using API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models.Repositories;
+using API.Models.DTOs;
 
 namespace API.Controllers
 {
@@ -17,7 +18,28 @@ namespace API.Controllers
 
     public class UsersController : ControllerBase
     {
-        // private Database _db = new Database();
+
+        //GET /api/users/{userId}
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(Guid userId)
+        {
+            UserDTO user = await UserRepository.GetUserById(userId);
+            if (user == null)
+            {
+                if (user == null)
+                return NotFound(
+                    new
+                    {
+                        Error = new
+                        {
+                            status = "400",
+                            title = "User Not Found",
+                            detail = $"User with ID:({userId}) does not exist"
+                        }
+                    });
+            }
+            return Ok(user);
+        }
 
         //POST /api/users
         [HttpPost]
@@ -34,6 +56,7 @@ namespace API.Controllers
             }
             return Created("", $"User: {user.Name} created.");
         }
+
         //POST /api/users/{userId}/listing
         [HttpPost("{userId}/listing")]
         public async Task<IActionResult> AddUserListing(Guid userId, Listing listing)
