@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Models.DTOs;
 using API.Models.Entities;
 using API.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Models.Repositories
 {
@@ -12,13 +13,13 @@ namespace API.Models.Repositories
     {
         private static Database _db = new Database();
         public static async Task<User> GetUserById(Guid id) {
-            var search = _db.Users.FirstOrDefault(x => x.Id == id);
+            var search = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (search == null) return null;
             return search;
 
         }
         public static async Task<UserDTO> GetUserByName(string name) {
-            var search = _db.Users.FirstOrDefault(x => x.Name == name);
+            var search = await _db.Users.FirstOrDefaultAsync(x => x.Name == name);
             if (search == null) return null;
             UserDTO dto = new UserDTO {
                 Id = search.Id,
@@ -28,7 +29,7 @@ namespace API.Models.Repositories
             return dto;
         }
         public static async Task<User> AddUser(User user) {
-            var search = _db.Users.FirstOrDefault(x => x.Email == user.Email);
+            var search = await _db.Users.FirstOrDefaultAsync(x => x.Email == user.Email);
            
            if (DoesUsernameExist(user.Name))
             {
@@ -51,11 +52,12 @@ namespace API.Models.Repositories
             // delete a user
         }
 
-        public static Guid? login(User user) {
+        public static async Task<Guid?> Login(User user) {
             // login a user return userID as token
             // use email and name to login for testing
 
-            var search = _db.Users.FirstOrDefault(x => x.Email == user.Email && x.Name == user.Name);
+            var search = await _db.Users.FirstOrDefaultAsync(x => x.Email == user.Email && x.Name == user.Name);
+
             // if (search == null) {
             //     return null;
             // }

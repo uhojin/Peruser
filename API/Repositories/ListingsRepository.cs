@@ -56,12 +56,12 @@ namespace API.Repositories
         public async Task<List<ListingDTO>> GetListingByUser(Guid userId)
         {
             // return Database.Listings.FirstOrDefault(x => x.Owner.Id == userId);
-            var result = _db.Listings
+            var result = await _db.Listings
                             .Include(x => x.Owner)
                             // .Include(x => x.Offers)
                             // .ThenInclude(x => x.Buyer)
                             .Where(x => x.Owner.Id == userId)
-                            .ToList();
+                            .ToListAsync();
 
             // make anonymous object to avoid circular reference
             return result.Select(x => new ListingDTO

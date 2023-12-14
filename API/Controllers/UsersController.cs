@@ -65,7 +65,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(User user)
         {
-            Guid? token = UserRepository.login(user);
+            Guid? token = await UserRepository.Login(user);
             if (token == null)
             {
                 return BadRequest(
