@@ -46,25 +46,25 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> AddUser([FromBody] RegistrationDTO registration)
         {
-            // Console.WriteLine(registration.Password);
-            // if (string.IsNullOrEmpty(registration.Password))
-            // {
-            //     return BadRequest(new
-            //     {
-            //         Error = new { status = "400", title = "Bad password", detail = $"This password: ({registration.Password}) is not valid"}
-            //     });
-            // }
+            if (string.IsNullOrEmpty(registration.Password))
+            {
+                return BadRequest(new
+                {
+                    Error = new { status = "400", title = "Bad password", detail = $"This password: ({registration.Password}) is not valid"}
+                });
+            }
             User checkUser = await UserRepository.AddUser(registration.Email, registration.Name, registration.Password);
             if (checkUser == null)
             {
                 return BadRequest(
                     new
                     {
+                        Success = false,
                         Error = new { status = "400", title = "Duplicate Name or bad Email", detail = $"This E-mail address: ({registration.Email}) is not valid or this name already exists" }
                     });
             }
     
-            return Created("", $"User: {registration.Name} created.");
+            return Ok(new {Success = true});
         }
 
         //POST /api/users/{userId}/listing
