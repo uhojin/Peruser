@@ -50,6 +50,7 @@ namespace API.Controllers
             {
                 return BadRequest(new
                 {
+                    Success = false,
                     Error = new { status = "400", title = "Bad password", detail = $"This password: ({registration.Password}) is not valid"}
                 });
             }
@@ -98,17 +99,17 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserDTO dto)
         {
-            Console.WriteLine("SHIT");
             Guid? token = await UserRepository.Login(dto.Name, dto.Password);
             if (token == null)
             {
                 return BadRequest(
                     new
                     {
+                        Success = false,
                         Error = new { status = "400", title = "Invalid Credentials", detail = $"Invalid Credentials" }
                     });
             }
-            return Ok(new {userID = token});
+            return Ok(new {userID = token, Success = true});
         }
     }
 }

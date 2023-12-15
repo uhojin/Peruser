@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -42,7 +43,6 @@ namespace API.Models.Repositories
             if (DoesUsernameExist(name)) return null; 
             if (IsValidEmail(email) == false) return null;
             if (string.IsNullOrEmpty(password)) return null;
-            //Console.WriteLine(password);
             User user = new()
             {
                 Id = Guid.NewGuid(),
@@ -69,22 +69,18 @@ namespace API.Models.Repositories
             else return true;
         }
 
-        public static void DeleteUser(User user) {
-            // delete a user
+        public static async Task<Guid> DeleteUser(Guid id) {
+            var search = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            // login a user return userID as token
+            _db.Users.Remove(search);
+            return id;
         }
 
         public static async Task<Guid?> Login(string name, string password) {
-            // login a user return userID as token
-            // use email and name to login for testing
-
             var search = await _db.Users.FirstOrDefaultAsync(x => x.Name == name && x.Password == password);
-            Console.WriteLine("FUCK");
-            if (search == null) {
-                return null;
-            }
-            // return search.Id;
-            return search?.Id;
-
+            if (search == null) return null;
+            // login a user return userID as token
+            return search.Id;
         }
     }
 }

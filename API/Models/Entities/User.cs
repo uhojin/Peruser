@@ -9,7 +9,7 @@ namespace API.Models.Entities
 {
     public class User
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
