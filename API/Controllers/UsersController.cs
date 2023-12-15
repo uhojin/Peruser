@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models.Repositories;
 using API.Models.DTOs;
+using System.Diagnostics;
 
 namespace API.Controllers
 {
@@ -95,9 +96,10 @@ namespace API.Controllers
 
         //POST /api/users/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login([FromBody] UserDTO dto)
         {
-            Guid? token = await UserRepository.Login(user);
+            Console.WriteLine("SHIT");
+            Guid? token = await UserRepository.Login(dto.Name, dto.Password);
             if (token == null)
             {
                 return BadRequest(

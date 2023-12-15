@@ -73,15 +73,15 @@ namespace API.Models.Repositories
             // delete a user
         }
 
-        public static async Task<Guid?> Login(User user) {
+        public static async Task<Guid?> Login(string name, string password) {
             // login a user return userID as token
             // use email and name to login for testing
 
-            var search = await _db.Users.FirstOrDefaultAsync(x => x.Email == user.Email && x.Name == user.Name);
-
-            // if (search == null) {
-            //     return null;
-            // }
+            var search = await _db.Users.FirstOrDefaultAsync(x => x.Name == name && x.Password == password);
+            Console.WriteLine("FUCK");
+            if (search == null) {
+                return null;
+            }
             // return search.Id;
             return search?.Id;
 
