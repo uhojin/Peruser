@@ -10,8 +10,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            email: username,
-            name: password
+            username: username,
+            password: password
         }),
     })
     .then(response => response.json())

@@ -18,14 +18,16 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     })
     .then(response => response.json())
     .then(data => {
+        //console.log(data);
         if (data.success) {
+            // Not sure why this doesn't proc! The else condition sure does because I saw it ten million times
             // Registration successful
             alert("Registration successful!");
             // Redirect to login page
             window.location.href = "login.html";
         } else {
             // Registration failed (username already exists)
-            alert("Username already exists. Please choose a different username.");
+            alert("Username already exists or email is invalid. Please check your input.");
         }
     })
     .catch((error) => {
