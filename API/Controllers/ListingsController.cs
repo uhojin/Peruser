@@ -35,7 +35,7 @@ namespace API.Controllers
         //Take query parameter s as a search string and return all listings that contain the search string in their name
         // [HttpGet("{listingName}")]
         [HttpGet("search/{listingName}")]
-        public async Task<IActionResult> SearchListingsByName([FromQuery]string listingName)
+        public async Task<IActionResult> SearchListingsByName(string listingName)
         {
             // return Ok("Listings");
             return Ok(await _db.Listings.Where(x => x.Title.ToLower().Contains(listingName.ToLower())).ToListAsync());

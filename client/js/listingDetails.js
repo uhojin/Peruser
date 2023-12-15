@@ -37,7 +37,8 @@ fetch(`http://localhost:5000/api/listings/${id}`, {
 
     if (editBtn) {
         editBtn.addEventListener('click', function() {
-            // Code to edit the listing goes here
+            // Redirect to the edit page with the listing ID in the URL
+            window.location.href = `editListing.html?id=${listing.id}`;
         });
     }
 

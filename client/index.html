@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="icon" href="./favicon.ico">
+    <script src="https://kit.fontawesome.com/92f767ee78.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <h1>Peruser</h1>
 
@@ -25,12 +28,39 @@
         </ul>
     </nav>
 
+    <div id="toolbar">
+        <!-- View toggle buttons -->
+        <div id="viewToggle">
+            <!-- <button id="listViewBtn">List View</button> -->
+            <button id="listViewBtn"><i class="fa-solid fa-list"></i></button>
+            <!-- <button id="gridViewBtn">Grid View</button> -->
+            <button id="gridViewBtn"><i class="fa-solid fa-border-all"></i></button>
+            
+            
+        </div>
+        <!-- search bar to look up item by name, or description, or seller name -->
+        <form id="searchForm">
+            <input type="search" id="searchInput" placeholder="Search for listings...">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Sort by dropdown menu, so user can sort by post date, price, and name -->
+        <select id="sortBy">
+            <option value="">Sort by...</option>
+            <option value="date">Post Date</option>
+            <option value="price">Price</option>
+            <option value="name">Name</option>
+        </select>
+    </div>
+
     <div id="products"></div>
 
     <!-- For test use -->
     <script>
         var userID = localStorage.getItem('userID');
         console.log(userID);
+        
     </script>
 </body>
+
 </html>

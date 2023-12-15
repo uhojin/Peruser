@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Add Listing</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">View Listings</a></li>
+            <li><a href="addListing.html" class="active">Add Listing</a></li>
+            <li><a href="myListings.html">My Listings</a></li>
+            <li><a href="myProfile.html">My Profile</a></li>
+        </ul>
+    </nav>
+
+    <form id="editListingForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" id="imageUrl" name="imageUrl">
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+
+        <input type="submit" value="Save Listing">
+    </form>
+</body>
+
+<script>
+    var userID = localStorage.getItem('userID');
+    console.log(userID);
+    // Get the listing ID from the URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var id = urlParams.get('id');
+
+    // Fetch the listing details
+    fetch(`http://localhost:5000/api/listings/${id}`)
+        .then(response => response.json())
+        .then(listing => {
+            // Fill in the form fields with the listing details
+            document.getElementById('title').value = listing.title;
+            document.getElementById('imageUrl').value = listing.imgUrl;
+            document.getElementById('price').value = listing.price;
+            document.getElementById('description').value = listing.description;
+        })
+        .catch(error => {
+            console.error('Error fetching listing:', error);
+        });
+
+
+    document.getElementById("editListingForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var title = document.getElementById("title").value;
+        var imageUrl = document.getElementById("imageUrl").value;
+        var price = document.getElementById("price").value;
+        var description = document.getElementById("description").value;
+
+        var listing = {
+            title: title,
+            imgUrl: imageUrl,
+            price: price,
+            description: description
+        };
+
+        // Send the listing object to the web API using a POST request
+        // You can use JavaScript's fetch API or any other library to make the request
+
+        fetch(`http://localhost:5000/api/listings/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(listing)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Listing added successfully:", data);
+                window.location.href = `listingDetails.html?id=${id}`;
+                
+                // Handle the response from the web API as needed
+            })
+            .catch(error => {
+                console.error("Error editing listing:", error);
+                // Handle any errors that occur during the request
+            });
+    });
+</script>
+
+</html>
