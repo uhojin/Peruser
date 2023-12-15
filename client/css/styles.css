@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
 }
 
 /* Set base font size for responsive design */
@@ -48,6 +49,72 @@ nav ul li a:hover {
     color: #ccc;
 }
 
+nav ul li a.active {
+    color: #555;
+}
+
+#toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+#viewToggle button {
+    padding: 10px;
+    border: none;
+    /* background-color: #f8f9fa; */
+    /* color: #212529; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#viewToggle button:hover {
+    background-color: #e9ecef;
+}
+
+#searchForm {
+    flex-grow: 1;
+    display: flex;
+    margin: 0 20px;
+}
+
+#searchForm input[type="search"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+}
+
+#searchForm button {
+    padding: 10px;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchForm button:hover {
+    background-color: #0056b3;
+}
+
+#sortBy {
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    outline: none;
+}
+
+#products.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
 /* Styling for main content */
 #products {
     padding: 20px;
@@ -64,10 +131,11 @@ nav ul li a:hover {
     background-color: #f9f9f9;
 }
 
-#products h3 {
+#products h3, #products a {
     margin-bottom: 10px;
     color: #333;
     font-size: 1.5rem;
+    text-decoration: none;
 }
 
 #products p {
@@ -84,7 +152,7 @@ nav ul li a:hover {
 #addListingForm {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 66%;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -109,7 +177,7 @@ nav ul li a:hover {
 }
 
 #addListingForm input[type="submit"] {
-    padding: 10px 20px;
+    padding: 20px;
     border: none;
     border-radius: 5px;
     background-color: #333;
