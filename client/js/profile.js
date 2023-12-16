@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to render user details on the profile page
     function renderProfile(user) {
         var profileInfo = document.getElementById('profile-info');
-        profileInfo.innerHTML = `<p><strong>Name:</strong> ${user.name}</p>
-                                 <p><strong>Email:</strong> ${user.email}</p>
-                                 <p><strong>Points:</strong> ${user.currency}</p>`;
+        profileInfo.innerHTML = `<h2><strong>Name:</strong> ${user.name}</h2>
+                                 <h2><strong>Email:</strong> ${user.email}</h2>
+                                 <h2><strong>Points:</strong> ${user.currency}</h2>`;
     }
 });
 
