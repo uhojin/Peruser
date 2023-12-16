@@ -23,6 +23,11 @@ body {
     border-radius: 5px;
 }
 
+#inner-profile {
+    margin-left: 20px;
+    text-align: center;
+}
+
 #profile-info {
     margin-top: 20px;
 }
