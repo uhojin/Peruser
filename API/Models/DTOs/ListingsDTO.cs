@@ -13,7 +13,7 @@ namespace API.Models.DTOs
         public Guid? OwnerId { get; set; }
         // public UserDTO? OwnerId { get; set; }
         public DateTime PostingDate { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public string Description { get; set; }
     }
 }
