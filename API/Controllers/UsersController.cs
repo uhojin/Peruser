@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models.Repositories;
 using API.Models.DTOs;
+using System.Diagnostics;
 
 namespace API.Controllers
 {
@@ -42,19 +43,29 @@ namespace API.Controllers
         }
 
         //POST /api/users
-        [HttpPost]
-        public async Task<IActionResult> AddUser(User user)
+        [HttpPost("register")]
+        public async Task<IActionResult> AddUser([FromBody] RegistrationDTO registration)
         {
-            User checkUser = await UserRepository.AddUser(user);
+            if (string.IsNullOrEmpty(registration.Password))
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Error = new { status = "400", title = "Bad password", detail = $"This password: ({registration.Password}) is not valid"}
+                });
+            }
+            User checkUser = await UserRepository.AddUser(registration.Email, registration.Name, registration.Password);
             if (checkUser == null)
             {
                 return BadRequest(
                     new
                     {
-                        Error = new { status = "400", title = "Duplicate E-mail", detail = $"This E-mail address: ({user.Email}) is already in use" }
+                        Success = false,
+                        Error = new { status = "400", title = "Duplicate Name or bad Email", detail = $"This E-mail address: ({registration.Email}) is not valid or this name already exists" }
                     });
             }
-            return Created("", $"User: {user.Name} created.");
+    
+            return Ok(new {Success = true});
         }
 
         //POST /api/users/{userId}/listing
@@ -86,18 +97,27 @@ namespace API.Controllers
 
         //POST /api/users/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login([FromBody] UserDTO dto)
         {
-            Guid? token = await UserRepository.Login(user);
+            Guid? token = await UserRepository.Login(dto.Name, dto.Password);
             if (token == null)
             {
                 return BadRequest(
                     new
                     {
+                        Success = false,
                         Error = new { status = "400", title = "Invalid Credentials", detail = $"Invalid Credentials" }
                     });
             }
-            return Ok(new {userID = token});
+            return Ok(new {userID = token, Success = true});
+        }
+
+        //DELETE /api/users/delete/{userId}
+        [HttpDelete("delete/{userId}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            var search = await UserRepository.DeleteUser(userId);
+            return Ok(search);
         }
     }
 }

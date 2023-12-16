@@ -1,7 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Retrieve the user ID from local storage
-    var userID = localStorage.getItem('userID');
+// Retrieve the user ID from local storage
+var userID = localStorage.getItem('userID');
+const deleteButton = document.getElementById('delete-button');
 
+
+document.addEventListener('DOMContentLoaded', function () {
     // Fetch user details using the user ID
     fetch('http://localhost:5000/api/users/' + userID)
         .then(response => response.json())
@@ -16,10 +18,35 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to render user details on the profile page
     function renderProfile(user) {
         var profileInfo = document.getElementById('profile-info');
-        profileInfo.innerHTML = `
-            <p><strong>Name:</strong> ${user.name}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
-            <!-- Add more details as needed -->
-        `;
+        profileInfo.innerHTML = `<p><strong>Name:</strong> ${user.name}</p>
+                                 <p><strong>Email:</strong> ${user.email}</p>`;
     }
+});
+
+function deleteUser(userId) {
+    fetch("http://localhost:5000/api/users/delete/" + userID, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        console.log('Full Response:', response);
+        return response.json();
+    })
+    .then(data => {
+        if (data) {
+            localStorage.clear("userID");
+            window.location.href = "login.html";
+        } else {
+            alert("Failed to delete user. Please check your input.");
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+deleteButton.addEventListener('click', () => {
+    deleteUser(userID);
 });

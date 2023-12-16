@@ -20,12 +20,12 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     .then(data => {
         if (data.success) {
             // Registration successful
-            alert("Registration successful!");
+            //alert("Registration successful!");
             // Redirect to login page
             window.location.href = "login.html";
         } else {
             // Registration failed (username already exists)
-            alert("Username already exists. Please choose a different username.");
+            alert("Username already exists or email is invalid. Please check your input.");
         }
     })
     .catch((error) => {

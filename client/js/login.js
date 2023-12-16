@@ -10,17 +10,22 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            email: username,
-            name: password
+            name: username,
+            password: password
         }),
     })
     .then(response => response.json())
     .then(data => {
-        // Store the user ID in local storage
-        console.log(data.userID);
-        localStorage.setItem('userID', data.userID);
-        // Redirect to index.html
-        window.location.href = "index.html";
+        if (data.success) {
+            // Store the user ID in local storage
+            console.log(data.userID);
+            localStorage.setItem('userID', data.userID);
+            // Redirect to index.html
+            window.location.href = "index.html";
+        }
+        else {
+            alert("Invalid login!");
+        }
     })
     .catch((error) => {
         console.error('Error:', error);

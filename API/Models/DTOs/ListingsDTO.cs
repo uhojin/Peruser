@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace API.Models.DTOs
 {
-    
     public class ListingDTO
     {
         public Guid Id { get; set; }
