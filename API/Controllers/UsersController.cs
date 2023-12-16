@@ -111,5 +111,13 @@ namespace API.Controllers
             }
             return Ok(new {userID = token, Success = true});
         }
+
+        //DELETE /api/users/delete/{userId}
+        [HttpDelete("delete/{userId}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            var search = await UserRepository.DeleteUser(userId);
+            return Ok(search);
+        }
     }
 }

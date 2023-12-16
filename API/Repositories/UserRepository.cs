@@ -73,6 +73,7 @@ namespace API.Models.Repositories
             var search = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
             // login a user return userID as token
             _db.Users.Remove(search);
+            await _db.SaveChangesAsync();
             return id;
         }
 
