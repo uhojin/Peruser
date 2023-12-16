@@ -67,9 +67,12 @@ namespace API.Controllers
 
         //POST /api/listings/purchase/{listingId}
         [HttpPost("purchase/{listingId}")]
-        public async Task<IActionResult> PurchaseListing(Guid listingId, [FromBody] Guid buyerId)
+        public async Task<IActionResult> PurchaseListing(Guid listingId, [FromBody] string buyerId)
         {
-            var purchasedListing = await _listingsRepository.PurchaseListing(listingId, buyerId);
+            Console.WriteLine(buyerId);
+            // convert buyerId to Guid
+            Guid buyerGuid = Guid.Parse(buyerId);
+            var purchasedListing = await _listingsRepository.PurchaseListing(listingId, buyerGuid);
             return purchasedListing != null ? Ok(purchasedListing) : NotFound();
         }
     }

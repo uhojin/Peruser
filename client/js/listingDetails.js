@@ -64,14 +64,13 @@ fetch(`http://localhost:5000/api/listings/${id}`, {
 
         if (buyBtn) {
             buyBtn.addEventListener('click', function () {
-                // Code to buy the listing goes here
                 var buyerId = localStorage.getItem('userID');
                 fetch(`http://localhost:5000/api/listings/purchase/${listing.id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ buyerId: buyerId })
+                    body: JSON.stringify(buyerId)
                 })
                     .then(response => {
                         if (!response.ok) {

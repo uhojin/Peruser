@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderProfile(user) {
         var profileInfo = document.getElementById('profile-info');
         profileInfo.innerHTML = `<p><strong>Name:</strong> ${user.name}</p>
-                                 <p><strong>Email:</strong> ${user.email}</p>`;
+                                 <p><strong>Email:</strong> ${user.email}</p>
+                                 <p><strong>Points:</strong> ${user.currency}</p>`;
     }
 });
 

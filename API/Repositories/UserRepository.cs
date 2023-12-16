@@ -21,7 +21,8 @@ namespace API.Models.Repositories
             {
                 Id = search.Id,
                 Name = search.Name,
-                Email = search.Email
+                Email = search.Email,
+                Currency = search.Currency
             };
             return dto;
 
