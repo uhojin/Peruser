@@ -65,5 +65,15 @@ namespace API.Controllers
             return deletedListing != null ? Ok(deletedListing) : NotFound();
         }
 
+        //POST /api/listings/purchase/{listingId}
+        [HttpPost("purchase/{listingId}")]
+        public async Task<IActionResult> PurchaseListing(Guid listingId, [FromBody] string buyerId)
+        {
+            Console.WriteLine(buyerId);
+            // convert buyerId to Guid
+            Guid buyerGuid = Guid.Parse(buyerId);
+            var purchasedListing = await _listingsRepository.PurchaseListing(listingId, buyerGuid);
+            return purchasedListing != null ? Ok(purchasedListing) : NotFound();
+        }
     }
 }
