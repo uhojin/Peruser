@@ -119,5 +119,34 @@ namespace API.Repositories
 
             return listingToUpdate;
         }
+        public async Task<Listing> PurchaseListing(Guid listingId, Guid buyerId)
+        {
+            var listingToPurchase = await _db.Listings
+                                            // .Include(x => x.Offers)
+                                            .FirstOrDefaultAsync(x => x.Id == listingId);
+            if (listingToPurchase == null)
+            {
+                return null;
+            }
+
+            var buyer = await _db.Users.FirstOrDefaultAsync(x => x.Id == buyerId);
+            if (buyer == null)
+            {
+                return null;
+            }
+            buyer.Currency -= listingToPurchase.Price;
+            var owner = await _db.Users.FirstOrDefaultAsync(x => x.Id == listingToPurchase.OwnerId);
+            if (owner == null)
+            {
+                return null;
+            }
+            owner.Currency += listingToPurchase.Price;
+
+            _db.Listings.Remove(listingToPurchase);
+
+            await _db.SaveChangesAsync();
+
+            return listingToPurchase;
+        }
     }
 }
