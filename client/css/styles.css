@@ -189,3 +189,12 @@ nav ul li a.active {
 #addListingForm input[type="submit"]:hover {
     background-color: #444;
 }
+
+#inner-profile {
+    margin: 40px;
+    text-align: center;
+}
+
+#profile-info {
+    margin-bottom: 20px;
+}
