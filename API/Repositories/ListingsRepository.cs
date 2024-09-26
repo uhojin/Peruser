@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
 {
+    
     public class ListingsRepository
     {
         private Database _db = new();
